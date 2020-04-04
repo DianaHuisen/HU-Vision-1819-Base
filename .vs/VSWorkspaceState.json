@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\implementatieplannen",
+    "\\meetrapporten",
+    "\\source",
+    "\\source\\ExternalDLL",
+    "\\source\\ExternalDLL\\ExternalDLL",
+    "\\source\\FaceRecognitionGUI",
+    "\\source\\FaceRecognitionGUI\\FaceRecognitionGUI",
+    "\\source\\FaceRecognitionGUI\\FaceRecognitionGUI\\Resources",
+    "\\testsets"
+  ],
+  "SelectedNode": "\\source\\ExternalDLL\\ExternalDLL2017.sln",
+  "PreviewInSolutionExplorer": false
+}
