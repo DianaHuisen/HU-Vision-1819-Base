@@ -9,6 +9,8 @@
 #include "GrayscaleAlgorithm.h"
 #include "ImageFactory.h"
 #include "HereBeDragons.h"
+#include <chrono>
+#include <ctime>
 
 IntensityImage * DefaultPreProcessing::stepToIntensityImage(const RGBImage &src) const {
 	GrayscaleAlgorithm grayScaleAlgorithm;
@@ -32,6 +34,7 @@ IntensityImage * DefaultPreProcessing::stepScaleImage(const IntensityImage &src)
 }
 
 IntensityImage * DefaultPreProcessing::stepEdgeDetection(const IntensityImage &src) const {
+	auto start = std::chrono::system_clock::now();
 	cv::Mat OverHillOverDale;
 	HereBeDragons::HerLoveForWhoseDearLoveIRiseAndFall(src, OverHillOverDale);
 	//cv::medianBlur(*image, *image, 3);
@@ -41,14 +44,27 @@ IntensityImage * DefaultPreProcessing::stepEdgeDetection(const IntensityImage &s
 	filter2D(OverHillOverDale, OverParkOverPale, CV_8U, ThoroughBushThoroughBrier, cv::Point(-1, -1), 0, cv::BORDER_DEFAULT);
 	IntensityImage * ThoroughFloodThoroughFire = ImageFactory::newIntensityImage();
 	HereBeDragons::NoWantOfConscienceHoldItThatICall(OverParkOverPale, *ThoroughFloodThoroughFire);
+	auto end = std::chrono::system_clock::now();
+
+	std::chrono::duration<double> elapsed_seconds = end - start;
+	std::time_t end_time = std::chrono::system_clock::to_time_t(end);
+
+	std::cout << "Elapsed time Detection: " << elapsed_seconds.count() << "s\n";
 	return ThoroughFloodThoroughFire;
 }
 
 IntensityImage * DefaultPreProcessing::stepThresholding(const IntensityImage &src) const {
+	auto start = std::chrono::system_clock::now();
 	cv::Mat OverHillOverDale;
 	HereBeDragons::HerLoveForWhoseDearLoveIRiseAndFall(src, OverHillOverDale);
 	cv::threshold(OverHillOverDale, OverHillOverDale, 220, 255, cv::THRESH_BINARY_INV);
 	IntensityImage * ThoroughBushThoroughBrier = ImageFactory::newIntensityImage();
 	HereBeDragons::NoWantOfConscienceHoldItThatICall(OverHillOverDale, *ThoroughBushThoroughBrier);
+	auto end = std::chrono::system_clock::now();
+
+	std::chrono::duration<double> elapsed_seconds = end - start;
+	std::time_t end_time = std::chrono::system_clock::to_time_t(end);
+
+	std::cout << "Elapsed time Thresholding: " << elapsed_seconds.count() << "s\n";
 	return ThoroughBushThoroughBrier;
 }
